@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>¡Feliz Cumpleaños!</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(circle at top, rgba(255, 120, 120, 0.15), transparent 40%),
+                linear-gradient(135deg, #220606, #4e0707, #7a0000);
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: #fff;
+            position: relative;
+        }
+
+        /* =========================
+           CORAZONES DE FONDO
+        ========================= */
+        .hearts-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .heart-float {
+            position: absolute;
+            bottom: -10vh;
+
+            font-size: clamp(2rem, 5vw, 5rem);
+
+            color: rgba(255, 120, 120, 0.22);
+
+            text-shadow:
+                0 0 10px rgba(255, 80, 80, 0.3),
+                0 0 25px rgba(255, 80, 80, 0.25);
+
+            animation: floatUp linear infinite;
+            filter: blur(0.2px);
+        }
+
+        .h1 {
+            left: 10%;
+            animation-duration: 8s;
+        }
+
+        .h2 {
+            left: 30%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+
+        .h3 {
+            left: 50%;
+            animation-duration: 10s;
+        }
+
+        .h4 {
+            left: 75%;
+            animation-duration: 14s;
+        }
+
+        .h5 {
+            left: 15%;
+            animation-duration: 16s;
+            animation-delay: 3s;
+        }
+
+        .h6 {
+            left: 65%;
+            animation-duration: 11s;
+            animation-delay: 1s;
+        }
+
+        .h7 {
+            left: 85%;
+            animation-duration: 18s;
+            animation-delay: 5s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           TARJETA
+        ========================= */
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+
+            padding: 2rem;
+            text-align: center;
+
+            width: 90%;
+            max-width: 450px;
+            max-height: 85vh;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            position: relative;
+            z-index: 1;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(255, 80, 80, 0.15);
+
+            animation: fadeCard 1s ease;
+        }
+
+        .card::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .card::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeCard {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================
+           REGALO
+        ========================= */
+        #gift-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .gift-icon {
+            font-size: 6rem;
+            animation: float 3s ease-in-out infinite;
+
+            filter: drop-shadow(0 0 15px rgba(255, 100, 100, 0.5));
+
+            margin-bottom: 25px;
+        }
+
+        .tap-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+
+            padding: 15px 30px;
+            border-radius: 50px;
+
+            font-weight: bold;
+            text-transform: uppercase;
+
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+
+            animation: pulseBtn 1.5s infinite;
+        }
+
+        /* =========================
+           MENSAJE
+        ========================= */
+        #message-container {
+            display: none;
+            opacity: 0;
+        }
+
+        .show-message {
+            display: block !important;
+            animation: popIn 0.8s ease forwards;
+        }
+
+        h1 {
+            color: #fbd786;
+
+            margin-bottom: 15px;
+
+            font-size: 2rem;
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 10px rgba(251, 215, 134, 0.5),
+                0 0 25px rgba(255, 200, 120, 0.3);
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 0.97rem;
+        }
+
+        /* =========================
+           GALERÍA
+        ========================= */
+        .cat-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .cat-photo {
+            background: white;
+
+            padding: 8px 8px 20px 8px;
+
+            border-radius: 5px;
+            width: 120px;
+
+            transform: rotate(-3deg);
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .cat-photo:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .cat-photo:hover {
+            transform: scale(1.08) rotate(0deg);
+
+            box-shadow:
+                0 10px 25px rgba(255, 150, 150, 0.35);
+        }
+
+        .cat-photo img {
+            width: 100%;
+            height: 100px;
+
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        /* =========================
+           ANIMACIONES
+        ========================= */
+        @keyframes float {
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes pulseBtn {
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CORAZONES -->
+    <div class="hearts-bg">
+        <div class="heart-float h1">❤️</div>
+        <div class="heart-float h2">🤍</div>
+        <div class="heart-float h3">❤️</div>
+        <div class="heart-float h4">💖</div>
+        <div class="heart-float h5">💕</div>
+        <div class="heart-float h6">🤍</div>
+        <div class="heart-float h7">❤️</div>
+    </div>
+
+    <audio id="musica-fondo" src="cancion.mp3"></audio>
+
+    <div class="card">
+
+        <!-- REGALO -->
+        <div id="gift-container">
+            <div class="gift-icon">🎁</div>
+            <div class="tap-btn">Toca para abrir ❤️</div>
+        </div>
+
+        <!-- MENSAJE -->
+        <div id="message-container">
+
+            <h1>De Mi Para Ti</h1>
+
+            <p>
+                ¡Feliz cumpleaños, Alicia! 🎂✨
+                <br><br>
+
+                Admiro muchísimo tu sinceridad, tu carisma y la forma en que haces que todo se sienta tan natural.
+                Pero, más que nada, me quedo con todas esas bromas, risas y hasta esos tiernos enojos que siempre
+                terminan sacándome una sonrisa.
+                <br><br>
+
+                Y hay algo más que siempre voy a recordar: todas esas veces en las que conectamos justo en el mismo
+                momento, con las mismas reacciones o comentarios que terminan dándonos un susto y haciéndonos pensar:
+                “¿Acaso estás leyendo mi mente?”.
+                <br><br>
+
+                Siento que cada una de esas casualidades hizo que todo entre nosotros se volviera único, especial y
+                auténtico.
+                <br><br>
+
+                Aunque este detalle sea pequeñito, lo hice pensando en ti. Quería recordarte lo increíble que eres y
+                lo mucho que mereces disfrutar este día rodeada de cariño, risas y personas que te quieran de verdad.
+                <br><br>
+
+                Espero que este nuevo año te traiga momentos aún más lindos, muchísimas alegrías y que cumplas todo lo
+                que sueñas. También espero que sigamos creando más recuerdos juntos… y viviendo esas “casualidades”
+                que siempre terminan acercándonos otra vez.
+                <br><br>
+
+                Pásala hermoso hoy, Alicia. Te lo mereces muchísimo. 💖
+            </p>
+
+            <!-- FOTOS -->
+            <div class="cat-gallery">
+
+                <div class="cat-photo">
+                    <img src="gatitos/gatoserio.jpg" alt="Gatito 1">
+                </div>
+
+                <div class="cat-photo">
+                    <img src="gatitos/patitagorra.jpg" alt="Gatito 2">
+                </div>
+
+                <div class="cat-photo">
+                    <img src="gatitos/TQM NALGONA.png" alt="Gatito 3">
+                </div>
+
+            </div>
+
+            <p style="margin-top:20px; font-weight:bold; color:#ffcccc;">
+                Con cariño...
+            </p>
+
+            <p style="margin-top:10px; font-weight:bold; color:#e5d2c0;">
+                Patrick
+            </p>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const gift = document.getElementById('gift-container');
+        const msg = document.getElementById('message-container');
+        const audio = document.getElementById('musica-fondo');
+
+        gift.addEventListener('click', () => {
+
+            audio.volume = 0.4;
+
+            audio.play().catch(() => console.log("Audio bloqueado"));
+
+            gift.style.display = 'none';
+
+            msg.classList.add('show-message');
+
+            lanzarConfeti();
+        });
+
+        function lanzarConfeti() {
+
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff0000', '#fbd786', '#ffffff']
+            });
+        }
+    </script>
+
+</body>
+
+</html>
